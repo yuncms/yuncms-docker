@@ -6,11 +6,10 @@
     <br>
 </p>
 
-This is the repo of the official [yuncms](https://github.com/yuncms)
-[docker image](https://github.com/yuncms) for PHP.
+This is the repo of the official [yuncms](https://github.com/yuncms) [docker image](https://hub.docker.com/r/yuncms) for PHP.
 
 ## Status
 
-[![Build Status](https://travis-ci.org/yuncms/yuncms-docker.svg?branch=master)](https://travis-ci.org/yuncms/yuncms-docker)
+[![Build Status](https://travis-ci.org/yuncms/yuncms-docker.svg?branch=master)](https://travis-ci.org/yuncms/yuncms-docker) ![](https://img.shields.io/badge/PHP-7.1.1-brightgreen.svg) ![](https://img.shields.io/badge/Debian-jessie-brightgreen.svg) ![](https://img.shields.io/docker/stars/yuncms/docker.svg) ![](https://img.shields.io/docker/pulls/yuncms/docker.svg)
 
 This is still work in progress. The images are not yet available on docker hub.
