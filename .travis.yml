@@ -67,7 +67,7 @@ before_script:
   - env | sort
   - cd "$VERSION/$VARIANT"
   - SUBVARIANT="${VARIANT#*/}"
-  - image="xutl/php:${VERSION}-${SUBVARIANT}-${VARIANT%/*}"
+  - image="yuncms/php:${VERSION}-${SUBVARIANT}-${VARIANT%/*}"
 
 script:
   - travis_retry docker build --build-arg PHP_VERSION=${PHP_VERSION} -t "$image" .
@@ -77,18 +77,18 @@ after_success:
       docker login --username="${DOCKER_REGISTRY_USER}" --password="${DOCKER_REGISTRY_PASSWORD}";
       docker push $image;
       if [ "${VARIANT%/*}" == "xenial" ]; then
-        docker tag $image xutl/php:${VERSION}-${SUBVARIANT};
-        docker push xutl/php:${VERSION}-${SUBVARIANT};
-        docker tag $image xutl/php:${PHP_VERSION}-${SUBVARIANT};
-        docker push xutl/php:${PHP_VERSION}-${SUBVARIANT};
+        docker tag $image yuncms/php:${VERSION}-${SUBVARIANT};
+        docker push yuncms/php:${VERSION}-${SUBVARIANT};
+        docker tag $image yuncms/php:${PHP_VERSION}-${SUBVARIANT};
+        docker push yuncms/php:${PHP_VERSION}-${SUBVARIANT};
         if [ "${VERSION}" == "7.1" ]; then
           if [ "${SUBVARIANT}" == "fpm" ]; then
-            docker tag $image xutl/php:latest;
-            docker push xutl/php:latest;
-            docker tag $image xutl/php:${PHP_VERSION};
-            docker push xutl/php:${PHP_VERSION};
-            docker tag $image xutl/php:${VERSION};
-            docker push xutl/php:${VERSION};
+            docker tag $image yuncms/php:latest;
+            docker push yuncms/php:latest;
+            docker tag $image yuncms/php:${PHP_VERSION};
+            docker push yuncms/php:${PHP_VERSION};
+            docker tag $image yuncms/php:${VERSION};
+            docker push yuncms/php:${VERSION};
           fi
         fi
       fi
