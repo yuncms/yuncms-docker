@@ -3,8 +3,4 @@ FROM xutl/php:7.1-build
 MAINTAINER XUTONGLE <xutongle@gmail.com>
 
 # Environment settings
-ENV PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH \
-    TERM=linux \
-    COMPOSER_ALLOW_SUPERUSER=1
-
-VOLUME ["/root/.composer"]
+ENV PATH=/app:/app/vendor/bin:$PATH
