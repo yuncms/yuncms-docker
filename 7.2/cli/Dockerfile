@@ -1,4 +1,4 @@
-FROM xutl/php:7.2-cli-xenial
+FROM xutl/php:7.2.0-cli
 
 MAINTAINER XUTONGLE <xutongle@gmail.com>
 
