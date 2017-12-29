@@ -1,6 +1,6 @@
 FROM xutl/php:7.1-fpm
 
-MAINTAINER XUTONGLE <xutongle@gmail.com>
+LABEL maintainer="xutongle@gmail.com"
 
 # Environment settings
 ENV PATH=/app:/app/vendor/bin:$PATH
