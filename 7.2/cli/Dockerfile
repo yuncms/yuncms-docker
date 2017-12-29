@@ -77,5 +77,6 @@ RUN set -xe \
 	&& make -j "$(nproc)" \
 	&& make install \
 	&& rm -rf /usr/local/src/yaml-${yamlVersion} \
-	&& echo "extension=yaml.so" >> ${PHP_INI_DIR}/php/yaml.ini
+	&& echo "extension=yaml.so" >> ${PHP_INI_DIR}/php/yaml.ini \
+	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $buildDeps
 
