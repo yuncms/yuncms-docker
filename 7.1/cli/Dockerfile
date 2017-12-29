@@ -50,7 +50,7 @@ RUN set -xe \
 	&& cd memcached-${memcachedVersion} \
 	&& phpize \
 	&& ./configure --enable-memcached --enable-memcached-igbinary --enable-memcached-json --enable-memcached-msgpack --with-libdir=lib64 \
-	&& make \
+	&& make -j "$(nproc)" \
 	&& make install \
 	&& rm -rf /usr/local/src/memcached-${memcachedVersion} \
 	&& echo "extension=memcached.so" >> ${PHP_INI_DIR}/php/memcached.ini \
@@ -62,7 +62,7 @@ RUN set -xe \
 	&& cd redis-${redisVersion} \
 	&& phpize \
 	&& ./configure --enable-redis --enable-redis-igbinary \
-	&& make \
+	&& make -j "$(nproc)" \
 	&& make install \
 	&& rm -rf /usr/local/src/redis-${redisVersion} \
 	&& echo "extension=redis.so" >> ${PHP_INI_DIR}/php/redis.ini \
@@ -74,7 +74,7 @@ RUN set -xe \
 	&& cd yaml-${yamlVersion} \
 	&& phpize \
 	&& ./configure \
-	&& make \
+	&& make -j "$(nproc)" \
 	&& make install \
 	&& rm -rf /usr/local/src/yaml-${yamlVersion} \
 	&& echo "extension=yaml.so" >> ${PHP_INI_DIR}/php/yaml.ini
