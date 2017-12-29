@@ -11,7 +11,7 @@ RUN set -xe \
 		libyaml-dev \
 	" \
 	\
-	&& sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/' /etc/apt/sources.list \
+#	&& sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/' /etc/apt/sources.list \
 	&& apt-get update && apt-get install -y --no-install-recommends --no-install-suggests libmemcached11 libyaml-0-2 $buildDeps && rm -r /var/lib/apt/lists/* \
 	\
 	&& msgpackVersion=2.0.2 \
