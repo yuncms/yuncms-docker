@@ -3,7 +3,7 @@ FROM xutl/php:7.2-fpm-xenial
 MAINTAINER XUTONGLE <xutongle@gmail.com>
 
 # Environment settings
-ENV PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH
+ENV PATH=/app:/app/vendor/bin:$PATH
 
 ENV NGINX_INI_DIR=/usr/local/etc/nginx
 
