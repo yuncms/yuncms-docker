@@ -11,7 +11,7 @@ ENV YUI_COMPRESSOR_JAR=https://github.com/yui/yuicompressor/releases/download/v$
 
 RUN cd /usr/local/src \
 	&& curl -fSL ${YUI_COMPRESSOR_JAR} -o /usr/local/bin/yuicompressor.jar
-	
+
 ENV COMPILER_VERSION=20171203
 ENV COMPILER_TGZ=http://dl.google.com/closure-compiler/compiler-${COMPILER_VERSION}.tar.gz
 
@@ -19,7 +19,7 @@ RUN mkdir -p /tmp/c \
 	&& cd /tmp/c \
 	&& curl -fSL ${COMPILER_TGZ} -o compiler-${COMPILER_VERSION}.tar.gz \
 	&& tar zxf compiler-${COMPILER_VERSION}.tar.gz \
-	&& mv -v closure-compiler-v${COMPILER_VERSION}.jar /usr/share/ant/lib/closure-compiler.jar \
+	&& mv -v closure-compiler-v${COMPILER_VERSION}.jar /usr/local/bin/closure-compiler.jar \
 	&& rm -rf /tmp/c
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
