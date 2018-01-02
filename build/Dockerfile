@@ -2,6 +2,14 @@ FROM yuncms/php:7.1-cli
 
 LABEL maintainer="xutongle@gmail.com"
 
+RUN apt-get update \
+	&& apt-get install -y git subversion curl wget nano unzip diffutils ntp openjdk-8-jdk --no-install-recommends \
+	&& rm -r /var/lib/apt/lists/*
+
+ENV YUI_COMPRESSOR_VERSION=2.4.8
+
+RUN curl -fSL https://github.com/yui/yuicompressor/releases/download/v2.4.8/yuicompressor-2.4.8.jar -o /usr/local/bin/yuicompressor.jar
+
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
   && for key in \
@@ -21,8 +29,8 @@ RUN set -ex \
 
 ENV NODE_VERSION=8.9.3
 
-RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" && \
-  case "${dpkgArch##*-}" in \
+RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
+  && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
     ppc64el) ARCH='ppc64le';; \
     s390x) ARCH='s390x';; \
@@ -30,32 +38,30 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" && \
     armhf) ARCH='armv7l';; \
     i386) ARCH='x86';; \
     *) echo "unsupported architecture"; exit 1 ;; \
-  esac && \
-  curl -SLO "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" && \
-  curl -SLO --compressed "https://nodejs.org/dist/v${NODE_VERSION}/SHASUMS256.txt.asc" && \
-  gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc && \
-  grep " node-v${NODE_VERSION}-linux-${ARCH}.tar.xz\$" SHASUMS256.txt | sha256sum -c - && \
-  tar -xJf "node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" -C /usr/local --strip-components=1 --no-same-owner && \
-  rm "node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt && \
-  ln -s /usr/local/bin/node /usr/local/bin/nodejs
+  esac \
+  && curl -SLO "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" \
+  && curl -SLO --compressed "https://nodejs.org/dist/v${NODE_VERSION}/SHASUMS256.txt.asc" \
+  && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
+  && grep " node-v${NODE_VERSION}-linux-${ARCH}.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+  && tar -xJf "node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+  && rm "node-v${NODE_VERSION}-linux-${ARCH}.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
+  && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 ENV YARN_VERSION 1.3.2
 
-RUN set -ex && \
-    for key in \
+RUN set -ex \
+    && for key in \
         6A010C5166006599AA17F08146C2130DFD2497F5 \
     ; do \
         gpg --keyserver pgp.mit.edu --recv-keys "${key}" || \
         gpg --keyserver keyserver.pgp.com --recv-keys "${key}" || \
         gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "${key}" ; \
-    done && \
-    curl -fSLO --compressed "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz" && \
-    curl -fSLO --compressed "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz.asc" && \
-    gpg --batch --verify yarn-v${YARN_VERSION}.tar.gz.asc yarn-v${YARN_VERSION}.tar.gz && \
-    mkdir -p /opt/yarn && \
-    tar -xzf yarn-v${YARN_VERSION}.tar.gz -C /opt/yarn --strip-components=1 && \
-    ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn && \
-    ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg && \
-    rm yarn-v${YARN_VERSION}.tar.gz.asc yarn-v${YARN_VERSION}.tar.gz
-
-RUN apt-get update && apt-get install -y git subversion curl wget nano unzip diffutils ntp openjdk-8-jdk --no-install-recommends && rm -r /var/lib/apt/lists/*
+    done \
+    && curl -fSLO --compressed "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz" \
+    && curl -fSLO --compressed "https://yarnpkg.com/downloads/${YARN_VERSION}/yarn-v${YARN_VERSION}.tar.gz.asc" \
+    && gpg --batch --verify yarn-v${YARN_VERSION}.tar.gz.asc yarn-v${YARN_VERSION}.tar.gz \
+    && mkdir -p /opt/yarn \
+    && tar -xzf yarn-v${YARN_VERSION}.tar.gz -C /opt/yarn --strip-components=1 \
+    && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
+    && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
+    && rm yarn-v${YARN_VERSION}.tar.gz.asc yarn-v${YARN_VERSION}.tar.gz
