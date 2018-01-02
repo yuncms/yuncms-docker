@@ -7,8 +7,20 @@ RUN apt-get update \
 	&& rm -r /var/lib/apt/lists/*
 
 ENV YUI_COMPRESSOR_VERSION=2.4.8
+ENV YUI_COMPRESSOR_JAR=https://github.com/yui/yuicompressor/releases/download/v${YUI_COMPRESSOR_VERSION}/yuicompressor-${YUI_COMPRESSOR_VERSION}.jar
 
-RUN curl -fSL https://github.com/yui/yuicompressor/releases/download/v2.4.8/yuicompressor-2.4.8.jar -o /usr/local/bin/yuicompressor.jar
+RUN cd /usr/local/src \
+	&& curl -fSL ${YUI_COMPRESSOR_JAR} -o /usr/local/bin/yuicompressor.jar
+	
+ENV COMPILER_VERSION=20171203
+ENV COMPILER_TGZ=http://dl.google.com/closure-compiler/compiler-${COMPILER_VERSION}.tar.gz
+
+RUN mkdir -p /tmp/c \
+	&& cd /tmp/c \
+	&& curl -fSL ${COMPILER_TGZ} -o compiler-${COMPILER_VERSION}.tar.gz \
+	&& tar zxf compiler-${COMPILER_VERSION}.tar.gz \
+	&& mv -v closure-compiler-v${COMPILER_VERSION}.jar /usr/share/ant/lib/closure-compiler.jar \
+	&& rm -rf /tmp/c
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
