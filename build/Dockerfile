@@ -3,7 +3,7 @@ FROM yuncms/php:7.1-cli
 LABEL maintainer="xutongle@gmail.com"
 
 RUN apt-get update \
-	&& apt-get install -y git subversion curl wget nano unzip diffutils ntp openjdk-8-jdk --no-install-recommends \
+	&& apt-get install -y openssh-client git subversion curl wget nano unzip diffutils ntp openjdk-8-jdk --no-install-recommends \
 	&& rm -r /var/lib/apt/lists/* \
 # Disable host key checking from within builds as we cannot interactively accept them
 # TODO: It might be a better idea to bake ~/.ssh/known_hosts into the container
