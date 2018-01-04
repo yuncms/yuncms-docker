@@ -5,6 +5,7 @@ LABEL maintainer="xutongle@gmail.com"
 RUN apt-get update \
 	&& apt-get install -y openssh-client git subversion curl wget nano unzip diffutils ntp openjdk-8-jdk --no-install-recommends \
 	&& rm -r /var/lib/apt/lists/* \
+	&& composer global require hirak/prestissimo \
 # Disable host key checking from within builds as we cannot interactively accept them
 # TODO: It might be a better idea to bake ~/.ssh/known_hosts into the container
 	&& mkdir -p ~/.ssh \
