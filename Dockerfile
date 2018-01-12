@@ -1,6 +1,5 @@
-ARG VARIANT
-ARG VERSION
-FROM xutl/php:${VERSION}-${VARIANT}
+ARG PHP_BASE_IMAGE_VERSION
+FROM xutl/php:${PHP_BASE_IMAGE_VERSION}
 
 LABEL maintainer="xutongle@gmail.com"
 
