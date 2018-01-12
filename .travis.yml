@@ -28,11 +28,10 @@ before_install:
 
 before_script:
   - env | sort
-  - cd "$VERSION/$VARIANT"
   - image="yuncms/php:${VERSION}-${VARIANT}"
 
 script:
-  - travis_retry docker build --build-arg PHP_VERSION=${PHP_VERSION} -t "$image" .
+  - travis_retry docker build --build-arg VERSION=${VERSION} --build-arg VARIANT=${VARIANT} -t "$image" .
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
