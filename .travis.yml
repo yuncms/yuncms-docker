@@ -43,16 +43,16 @@ after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login --username="${DOCKER_REGISTRY_USER}" --password="${DOCKER_REGISTRY_PASSWORD}";
       docker push $image;
+      if [ "${VARIANT}" == "fpm" ]; then
       docker tag $image yuncms/php:${VERSION};
       docker push yuncms/php:${VERSION};
       docker tag $image yuncms/php:${PHP_VERSION};
       docker push yuncms/php:${PHP_VERSION};
-        if [ "${VERSION}" == "7.1" ]; then
+      fi
+      if [ "${VERSION}" == "7.1" ]; then
           if [ "${VARIANT}" == "fpm" ]; then
             docker tag $image yuncms/php:latest;
             docker push yuncms/php:latest;
-            docker tag $image yuncms/php:${PHP_VERSION};
-            docker push yuncms/php:${PHP_VERSION};
           fi
       fi
     fi
