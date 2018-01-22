@@ -79,7 +79,9 @@ RUN set -xe \
 	&& make install \
 	&& rm -rf /usr/local/src/yaml-${yamlVersion} \
 	&& echo "extension=yaml.so" >> ${PHP_INI_DIR}/php/yaml.ini \
+	\
 	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $buildDeps \
-	&& mkdir /app
+	&& mkdir /app \
+	&& chown -R www-data:www-data /app
 
 WORKDIR /app
