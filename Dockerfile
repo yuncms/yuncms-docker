@@ -18,7 +18,7 @@ RUN set -xe \
 	&& msgpackVersion=2.0.2 \
 		igbinaryVersion=2.0.5 \
 		memcachedVersion=3.0.4 \
-		redisVersion=3.1.4 \
+		redisVersion=3.1.6 \
 		yamlVersion=2.0.2 \
 	&& cd /usr/local/src \
 	&& curl -fSL http://pecl.php.net/get/msgpack-${msgpackVersion}.tgz -o msgpack-${msgpackVersion}.tgz \
@@ -79,5 +79,7 @@ RUN set -xe \
 	&& make install \
 	&& rm -rf /usr/local/src/yaml-${yamlVersion} \
 	&& echo "extension=yaml.so" >> ${PHP_INI_DIR}/php/yaml.ini \
-	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $buildDeps
+	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $buildDeps \
+	&& mkdir /app
 
+WORKDIR /app
