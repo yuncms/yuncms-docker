@@ -1,7 +1,5 @@
-#!/bin/sh
-set -e
-
-export PS1="\e[0;35mphd \e[0;37m\u container \h \e[0;32m\w \e[0;0m\n$ "
+#!/bin/bash
+set -euo pipefail
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
@@ -14,6 +12,13 @@ if [ "${1#-}" != "$1" ]; then
     else
         set -- php "$@"
     fi
+fi
+
+if [ -f "/app/yii" ];then
+	echo "[ ****************** ] Starting Endpoint of Application"
+	php yii migrate/up --interactive=0
+
+	echo "[ ****************** ] Ending Endpoint of Application"
 fi
 
 exec "$@"
