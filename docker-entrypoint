@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -e
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
@@ -14,14 +14,14 @@ if [ "${1#-}" != "$1" ]; then
     fi
 fi
 
-if [ -f "/app/init" ];then
-	/app/init --env=${APP_ENV:-Production} --overwrite=y
-	ln -s /app/http.nginx /usr/local/etc/nginx/sites/nginx.conf
-fi
-
-if [ -f "/app/yii" ];then
-	/app/yii migrate/up --interactive=0
-fi
+#if [ -f "/app/init" ];then
+#	/app/init --env=${APP_ENV:-Production} --overwrite=y
+#	ln -s /app/http.nginx /usr/local/etc/nginx/sites/nginx.conf
+#fi
+#
+#if [ -f "/app/yii" ];then
+#	/app/yii migrate/up --interactive=0
+#fi
 
 exec "$@"
 
