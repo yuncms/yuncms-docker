@@ -1,5 +1,5 @@
 ARG PHP_BASE_IMAGE_VERSION
-FROM xutl/php:${PHP_BASE_IMAGE_VERSION}
+FROM xutongle/php:${PHP_BASE_IMAGE_VERSION}
 
 LABEL maintainer="xutongle@gmail.com"
 
