@@ -4,7 +4,7 @@ FROM xutl/php:${PHP_BASE_IMAGE_VERSION}
 LABEL maintainer="xutongle@gmail.com"
 
 # Environment settings
-ENV PATH=/app:/app/vendor/bin:$PATH
+ENV PATH=/app:/app/bin:/app/vendor/bin:$PATH
 
 RUN set -xe \
 	&& mkdir /app \
