@@ -16,11 +16,11 @@ fi
 
 echo "[ ****************** ] Starting Endpoint of Application"
 if [ -f "/app/init" ];then
-	php init --env=${APP_ENV:-Production} --overwrite=y
+	/app/init --env=${APP_ENV:-Production} --overwrite=y
 fi
 
 if [ -f "/app/yii" ];then
-	php yii migrate/up --interactive=0
+	/app/yii migrate/up --interactive=0
 fi
 
 echo "[ ****************** ] Ending Endpoint of Application"
