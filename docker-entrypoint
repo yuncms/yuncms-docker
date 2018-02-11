@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -x
 
 echo "[ ****************** ] Starting Endpoint of Application"
 if [ -f "/app/init" ];then
