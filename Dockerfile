@@ -11,7 +11,8 @@ ADD docker-entrypoint /usr/local/bin/docker-entrypoint
 
 RUN set -xe \
 	&& mkdir /app \
-	&& chown -R www-data:www-data /app
+	&& chown -R www-data:www-data /app \
+	&& chmod 700 /usr/local/bin/docker-entrypoint
 
 ENTRYPOINT ["docker-entrypoint"]
 
