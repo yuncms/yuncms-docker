@@ -62,8 +62,4 @@ after_success:
           fi
       fi
     fi
-
-notifications:
-   webhooks: https://oapi.dingtalk.com/robot/send?access_token=db74d11bbc46e5a7533a4de2976f335168585c0cbb2ab8caf189169e8ea537e9
-
 # vim:set et ts=2 sw=2:
