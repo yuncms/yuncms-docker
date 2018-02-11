@@ -1,7 +1,5 @@
 #!/bin/bash
-set -e -x
-
-echo "Initialize the application."
+set -xe
 
 if [ -f "/app/init" ];then
 	/app/init --env=${APP_ENV:-Production} --overwrite=y
