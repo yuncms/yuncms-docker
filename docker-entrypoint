@@ -1,17 +1,16 @@
 #!/bin/bash
 set -e -x
 
-echo "[ ****************** ] Starting Endpoint of Application"
+echo "Initialize the application."
+
 if [ -f "/app/init" ];then
 	/app/init --env=${APP_ENV:-Production} --overwrite=y
+	ln -s /app/http.nginx /usr/local/etc/nginx/sites/nginx.conf
 fi
 
 if [ -f "/app/yii" ];then
 	/app/yii migrate/up --interactive=0
 fi
-
-echo "[ ****************** ] Ending Endpoint of Application"
-
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
