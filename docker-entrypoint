@@ -14,12 +14,16 @@ if [ "${1#-}" != "$1" ]; then
     fi
 fi
 
-if [ -f "/app/yii" ];then
-	echo "[ ****************** ] Starting Endpoint of Application"
-	php yii migrate/up --interactive=0
-
-	echo "[ ****************** ] Ending Endpoint of Application"
+echo "[ ****************** ] Starting Endpoint of Application"
+if [ -f "/app/init" ];then
+	php init --env=${APP_ENV:-Production} --overwrite=y
 fi
+
+if [ -f "/app/yii" ];then
+	php yii migrate/up --interactive=0
+fi
+
+echo "[ ****************** ] Ending Endpoint of Application"
 
 exec "$@"
 

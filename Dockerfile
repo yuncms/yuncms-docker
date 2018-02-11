@@ -5,6 +5,7 @@ LABEL maintainer="xutongle@gmail.com"
 
 # Environment settings
 ENV PATH=/app:/app/bin:/app/vendor/bin:$PATH
+ENV APP_ENV=Production
 
 # Add configuration files
 ADD docker-entrypoint /usr/local/bin/docker-entrypoint
