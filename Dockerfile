@@ -12,5 +12,3 @@ RUN set -xe \
 	&& chown -R www-data:www-data /app
 
 WORKDIR /app
-
-VOLUME ["/root/.composer"]
